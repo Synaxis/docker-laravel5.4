@@ -1,0 +1,30 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bobbyahines/laravel-5.4:1.0
+    container_name: laravel_server
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+  mysql:
+    image: mysql:latest
+    container_name: laravel_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=chicken
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: laravel_phpmyadmin
+    ports:
+      - "8080:80"
+    links:
+      - mysql:db
+    depends_on:
+      - mysql
