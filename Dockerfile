@@ -41,9 +41,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install -j$(nproc) gd
 
 # Install composer and put binary into $PATH
-#RUN curl -sS https://getcomposer.org/installer | php \
-#    && mv composer.phar /usr/local/bin/ \
-#    && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install phpunit and put binary into $PATH
 RUN curl -sSLo phpunit.phar https://phar.phpunit.de/phpunit.phar \
